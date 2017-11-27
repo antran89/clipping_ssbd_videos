@@ -23,9 +23,9 @@ link_directories(~/local/lib)
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 
-#find_package(OpenCV REQUIRED HINTS ~/local)
-#MESSAGE( STATUS "OpenCV version: " ${OpenCV_VERSION} )
-#MESSAGE( STATUS "OpenCV libs: " ${OpenCV_LIBS} )
+find_package(OpenCV REQUIRED HINTS ~/local)
+MESSAGE( STATUS "OpenCV version: " ${OpenCV_VERSION} )
+MESSAGE( STATUS "OpenCV libs: " ${OpenCV_LIBS} )
 
 #C++ AND linker flags
 list(APPEND CMAKE_CXX_FLAGS "-std=c++11 -pipe -D __STDC_CONSTANT_MACROS -D STD=std -Wall -O3 -DNDEBUG -ggdb ${CMAKE_CXX_FLAGS}")

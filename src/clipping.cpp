@@ -72,7 +72,7 @@ int main(int argc, char** argv)
         cout << "total number of files in folder: " << numFiles << endl;
 
         // reading annotations;
-        for (int i = 1; i <= numFiles; i++) {
+        for (int i = 1; i <= 25; i++) {
             // xml file name
             sprintf(num, "_%02d.xml", i);
             string xml_file = "v_" + actions[ind];
@@ -105,7 +105,12 @@ int main(int argc, char** argv)
             cnt++;
             fs::path vid_path(datasetFolder);
             vid_path.append(actions[ind]);
-            vid_path.append(to_string(cnt) + ".avi");
+            sprintf(num, "_%02d.avi", i);
+            string avi_file = "v_" + actions[ind];
+            avi_file.append(num);
+            vid_path.append(avi_file);
+            if (!fs::is_regular_file(vid_path))
+                continue;
             VideoCapture inputVideo(vid_path.c_str());
 
             double numFrames = inputVideo.get(CV_CAP_PROP_FRAME_COUNT);
@@ -122,6 +127,8 @@ int main(int argc, char** argv)
             sprintf(num, "_%02d.avi", i);
             video_file.append(num);
             outvid_path.append(video_file);
+            if (fs::is_regular_file(outvid_path))
+                continue;
 
             // setting parameters for output video
             int ex = static_cast<int>(inputVideo.get(CAP_PROP_FOURCC));     // Get Codec Type- Int form
