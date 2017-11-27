@@ -1,5 +1,6 @@
 #!/bin/bash
 
 ../src-build/clippingSSBDVideos -d=/media/data1/video/ssbd/ssbd_raw/ \
--a=/media/data1/video/ssbd/ssbd-release/Annotations/ -o=/media/data1/video/ssbd/ssbd_clip/
+-a=/media/data1/video/ssbd/ssbd-release/Annotations/ -o=/media/data1/video/ssbd/ssbd_clip/ \
+-h=240 -w=320
 

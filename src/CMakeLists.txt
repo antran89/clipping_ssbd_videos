@@ -34,3 +34,6 @@ list(APPEND CMAKE_CXX_FLAGS "-std=c++11 -pipe -D __STDC_CONSTANT_MACROS -D STD=s
 # add the executable for myIDT
 add_executable(${PROJECT_NAME} clipping.cpp)
 target_link_libraries(${PROJECT_NAME} opencv_core opencv_highgui opencv_video opencv_videoio boost_filesystem boost_system )
+
+add_executable(clip_segment clip_segment.cpp)
+target_link_libraries(clip_segment opencv_core opencv_highgui opencv_video opencv_videoio boost_filesystem boost_system )

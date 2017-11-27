@@ -29,12 +29,16 @@ int main(int argc, char** argv)
         "{ d  datasetFolder      | /home/beahacker/Public/data/video/ssbd | }"
         "{ a  annotationFolder   | /home/beahacker/Desktop/workspace/BoW_frameworks/dense_trajectories_BoW/ssbd-release/Annotations | }"
         "{ o  outputFolder       | /home/beahacker/Public/data/video/ssbd_avi | }"
+        "{ h  new_height       | 0  | new height of images and flows}"
+        "{ w  new_width        | 0  | new width of images and flows}"
     };
 
     CommandLineParser cmd(argc, argv, keys);
     string datasetFolder = cmd.get<string>("datasetFolder");
     string annotationFolder = cmd.get<string>("annotationFolder");
     string outputFolder = cmd.get<string>("outputFolder");
+    int new_height = cmd.get<int>("new_height");
+    int new_width = cmd.get<int>("new_width");
 
     cout << "OpenCV version: " << CV_VERSION << endl;
 
@@ -132,8 +136,10 @@ int main(int argc, char** argv)
 
             // setting parameters for output video
             int ex = static_cast<int>(inputVideo.get(CAP_PROP_FOURCC));     // Get Codec Type- Int form
-            Size S = Size(inputVideo.get(CV_CAP_PROP_FRAME_WIDTH), inputVideo.get(CV_CAP_PROP_FRAME_HEIGHT));
-            VideoWriter outputVideo(outvid_path.c_str(), ex, fps, S);
+            new_height = (new_height > 0) ? new_height : inputVideo.get(CV_CAP_PROP_FRAME_HEIGHT);
+            new_width = (new_width > 0) ? new_width : inputVideo.get(CV_CAP_PROP_FRAME_WIDTH);
+            cv::Size new_size(new_width, new_height);
+            VideoWriter outputVideo(outvid_path.c_str(), ex, fps, new_size);
             if (!outputVideo.isOpened()) {
                 cout << "Could not open the output video for write" << endl;
                 return -1;
@@ -147,6 +153,7 @@ int main(int argc, char** argv)
                 if (img.empty()) break;
                 fr++;
                 if (fr < start || fr > end) continue;
+                resize(img, img, new_size);
                 outputVideo << img;
             }
         }
