@@ -21,6 +21,7 @@ def parse_args():
                         type=str)
     parser.add_argument('--height', dest='height', help='the height of the video', default=240, type=int)
     parser.add_argument('--width', dest='width', help='the width of the video', default=320, type=int)
+    parser.add_argument('--max_num', dest='max_num', help='maximum number of frames to extract.', default=200, type=int)
 
     args = parser.parse_args()
 
@@ -33,6 +34,7 @@ def main():
     out_folder = args.out_folder
     height = args.height
     width = args.width
+    max_num = args.max_num
 
     xml_files = glob.glob(os.path.join(ann_folder, '*.xml'))
     xml_files.sort()
@@ -76,7 +78,8 @@ def main():
             if os.path.isfile(save_file):
                 continue
             
-            cmd = '../src-build/clip_segment -i=%s -t=%s -o=%s -d=%s -h=%d -w=%d' % (input_video, time, save_file, duration, height, width)
+            cmd = '../src-build/clip_segment -i=%s -t=%s -o=%s -d=%s -h=%d -w=%d -m=%d' % \
+            (input_video, time, save_file, duration, height, width, max_num)
 
             os.system(cmd)
 

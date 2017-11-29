@@ -32,6 +32,7 @@ int main(int argc, char** argv)
         "{ d  duration         |  | }"
         "{ h  new_height       | 0  | new height of images and flows}"
         "{ w  new_width        | 0  | new width of images and flows}"
+        "{ m  max_num        | 200  | maximum number of extracted frames}"
     };
 
     CommandLineParser cmd(argc, argv, keys);
@@ -41,6 +42,7 @@ int main(int argc, char** argv)
     int new_height = cmd.get<int>("new_height");
     int new_width = cmd.get<int>("new_width");
     string duration = cmd.get<string>("duration");
+    int max_num_frames = cmd.get<int>("max_num");
 
     cout << "OpenCV version: " << CV_VERSION << endl;
 
@@ -69,6 +71,7 @@ int main(int argc, char** argv)
 
     Mat img;
     int fr = 0;
+    int num = 0;
     for (;;)
     {
         inputVideo >> img;
@@ -77,5 +80,8 @@ int main(int argc, char** argv)
         if (fr < start || fr > end) continue;
         resize(img, img, new_size);
         outputVideo << img;
+        num++;
+        if (num > max_num_frames)
+            break;
     }
 }
