@@ -81,7 +81,7 @@ int main(int argc, char** argv)
         resize(img, img, new_size);
         outputVideo << img;
         num++;
-        if (num > max_num_frames)
+        if (num >= max_num_frames)
             break;
     }
 }
