@@ -4,7 +4,7 @@ Clip SSBD dataset tool
 HOW-TO USE
 ----------
 This repository contains scripts to clip Self-Stimulatory Behaviours Dataset (SSBD) dataset.
-First, download the SSBD dataset release from http://staff.estem-uc.edu.au/roland/research/datasets/ssbd/.
+First, download the SSBD dataset release from https://rolandgoecke.net/research/datasets/ssbd/.
 
 Compile the code:
 ```
